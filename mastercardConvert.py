@@ -9,7 +9,7 @@ import urllib2
 
 
 
-# Reads a Mastercard XML string, returns a dictionary of currencies and their exchange rates,
+# Reads a MasterCard XML string, returns a dictionary of currencies and their exchange rates,
 # using their code (e.g. GBP, USD etc.) as the key.
 def parseMastercardXML(xml):
 	root = ET.fromstring(xml)
