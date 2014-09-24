@@ -24,24 +24,24 @@ MASTERCARD_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getEx
 # using their code (e.g. GBP, USD etc.) as the key.
 def parseMasterCardXML(xml):
 	root = ET.fromstring(xml)
-	
+
 	# Get all currency elements
 	xmlCurrencies = root.findall('./TRANSACTION_CURRENCY/')
-	
-	
+
+
 	# Extract currency info from XML
 	currencies = {}
-	
+
 	for xmlCurrency in xmlCurrencies:
 		currency = {
 			'code': xmlCurrency.find('ALPHA_CURENCY_CODE').text,
 			'name': xmlCurrency.find('CURRENCY_NAME').text,
 			'rate': float(xmlCurrency.find('CONVERSION_RATE').text)
 		}
-		
+
 		# Store currencies so they are looked up by their key
 		currencies[currency['code']] = currency
-	
+
 	return currencies
 
 
