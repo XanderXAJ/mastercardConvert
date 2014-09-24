@@ -17,4 +17,4 @@ python mastercardConvert.py 10 USD GBP
 
 # Known issues
 
-MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.  This means that sometimes the excahnge rates for today might not be available.
+MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.  This means that sometimes the exchange rates for today might not be available.
