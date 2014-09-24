@@ -110,7 +110,12 @@ if len(currencies.keys()) == 0:
 
 # If the specified to_currency does not exist, output an error message and exit
 if args.to_currency not in currencies:
-	print('Currency', args.to_currency, 'does not exist in MasterCard\'s response. Please check it exists.', file=sys.stderr)
+	print(textwrap.dedent('''\
+		Currency {currency} does not exist in MasterCard\'s response. Please check it exists.
+
+		You can confirm the supported currencies by visiting the following URL:
+		https://www.mastercard.com/global/currencyconversion/index.html
+	'''.format(currency=args.to_currency)), file=sys.stderr)
 	sys.exit(1)
 
 
