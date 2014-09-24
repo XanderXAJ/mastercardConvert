@@ -11,7 +11,7 @@ import urllib2
 
 # Reads a MasterCard XML string, returns a dictionary of currencies and their exchange rates,
 # using their code (e.g. GBP, USD etc.) as the key.
-def parseMastercardXML(xml):
+def parseMasterCardXML(xml):
 	root = ET.fromstring(xml)
 	
 	# Get all currency elements
@@ -36,7 +36,7 @@ def parseMastercardXML(xml):
 
 
 # Parse arguments
-parser = argparse.ArgumentParser(description="Convert currency using Mastercard exchange rates")
+parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates")
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency to convert to to_currency')
 parser.add_argument('from_currency', help='The currency to convert from')
 parser.add_argument('to_currency', help='The currency to convert to')
@@ -50,8 +50,8 @@ args.to_currency = string.upper(args.to_currency)
 
 
 # Figure out URL
-baseMastercardUrl = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getExchngRateDetails&baseCurrency={from_currency}&settlementDate={date}'
-url = baseMastercardUrl.format(from_currency=args.from_currency, date=args.date)
+baseMasterCardUrl = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getExchngRateDetails&baseCurrency={from_currency}&settlementDate={date}'
+url = baseMasterCardUrl.format(from_currency=args.from_currency, date=args.date)
 
 if args.debug:
 	print url
@@ -62,7 +62,7 @@ xml = request.read()
 request.close()
 
 # Get currency exchange rates
-currencies = parseMastercardXML(xml)
+currencies = parseMasterCardXML(xml)
 
 if args.debug:
 	for currency in currencies:
