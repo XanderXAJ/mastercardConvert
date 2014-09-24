@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # For printing to stderr
 from __future__ import print_function
+from dateutil.parser import parse as parse_date
 
 
 
@@ -10,6 +11,10 @@ import xml.etree.ElementTree as ET
 import sys
 import string
 import urllib2
+
+
+
+DATE_FORMAT = '%m/%d/%Y'
 
 
 
@@ -59,12 +64,11 @@ args.to_currency = string.upper(args.to_currency)
 # Figure out which date to use
 # Date precedence goes: --date > --yesterday > today
 if args.date is not None: # User-specified date
-	# TODO: parse date
-	print('TODO', file=sys.stderr)
+	args.date = parse_date(args.date).strftime(DATE_FORMAT)
 elif args.yesterday: # Yesterday
-	args.date = (datetime.date.today() - datetime.timedelta(days=1)).strftime('%m/%d/%Y')
+	args.date = (datetime.date.today() - datetime.timedelta(days=1)).strftime(DATE_FORMAT)
 else: # Today
-	args.date = datetime.date.today().strftime('%m/%d/%Y')
+	args.date = datetime.date.today().strftime(DATE_FORMAT)
 
 
 # Figure out URL
