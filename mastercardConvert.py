@@ -10,6 +10,7 @@ import datetime
 import xml.etree.ElementTree as ET
 import sys
 import string
+import textwrap
 import urllib2
 
 
@@ -89,6 +90,28 @@ currencies = parseMasterCardXML(xml)
 if args.debug:
 	for currency in currencies:
 		print(currencies[currency], file=sys.stderr)
+
+# If no rates were returned, output an error message and exit
+if len(currencies.keys()) == 0:
+	print(textwrap.dedent('''\
+		No currencies were returned from MasterCard.
+
+		This tends to be for one of the following reasons:
+			1) The exchange rates for today have yet to be published;
+			2) The date used is a Saturday or Sunday;
+			3) The date used is too far in the past;
+			4) The to_currency does not exist in MasterCard's response.
+
+		If the date used was today's and you got this message, try --yesterday.
+		This may mean the exchange rate does not accurately reflect the transaction's,
+		but differences tend to be small.
+	'''), file=sys.stderr)
+	sys.exit(1)
+
+# If the specified to_currency does not exist, output an error message and exit
+if args.to_currency not in currencies:
+	print('Currency', args.to_currency, 'does not exist in MasterCard\'s response. Please check it exists.', file=sys.stderr)
+	sys.exit(1)
 
 
 # Calculate conversion
