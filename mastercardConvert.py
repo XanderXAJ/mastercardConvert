@@ -96,7 +96,7 @@ if len(currencies.keys()) == 0:
 			1) The exchange rates for today have yet to be published;
 			2) The date used is a Saturday or Sunday;
 			3) The date used is too far in the past;
-			4) The to_currency does not exist in MasterCard's response.
+			4) The from_currency does not exist in MasterCard's response.
 
 		If the date used was today's and you got this message, try --yesterday.
 		This may mean the exchange rate does not accurately reflect the transaction's,
