@@ -51,7 +51,7 @@ parser = argparse.ArgumentParser(description="Convert currency using MasterCard 
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency to convert to to_currency')
 parser.add_argument('from_currency', type=string.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
 parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
-parser.add_argument('-y', '--yesterday', action='store_true', help='Uses yesterday\'s exchange rates')
+parser.add_argument('-y', '--yesterday', action='count', help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 parser.add_argument('-d', '--date', help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
 parser.add_argument('-v', '--verbosity', action='count', default=0, help='Increases output verbosity; specify multiple times for more')
 args = parser.parse_args()
@@ -63,8 +63,8 @@ if args.verbosity >= 1:
 # Date precedence goes: --date > --yesterday > today
 if args.date is not None: # User-specified date
 	args.date = parse_date(args.date).strftime(DATE_FORMAT)
-elif args.yesterday: # Yesterday
-	args.date = (datetime.date.today() - datetime.timedelta(days=1)).strftime(DATE_FORMAT)
+elif args.yesterday > 0: # Yesterday
+	args.date = (datetime.date.today() - datetime.timedelta(days=args.yesterday)).strftime(DATE_FORMAT)
 else: # Today
 	args.date = datetime.date.today().strftime(DATE_FORMAT)
 
