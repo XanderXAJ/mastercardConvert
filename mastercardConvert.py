@@ -53,10 +53,10 @@ parser.add_argument('from_currency', type=string.upper, help='The currency to co
 parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
 parser.add_argument('-y', '--yesterday', action='store_true', help='Uses yesterday\'s exchange rates')
 parser.add_argument('-d', '--date', help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
-parser.add_argument('-x', '--debug', action='store_true', help='Prints debug information to stderr')
+parser.add_argument('-v', '--verbosity', action='count', default=0, help='Increases output verbosity; specify multiple times for more')
 args = parser.parse_args()
 
-if args.debug:
+if args.verbosity >= 1:
 	print(args, file=sys.stderr)
 
 # Figure out which date to use
@@ -72,7 +72,7 @@ else: # Today
 # Figure out URL
 url = MASTERCARD_URL.format(from_currency=args.from_currency, date=args.date)
 
-if args.debug:
+if args.verbosity >= 1:
 	print('MasterCard XML URL:', url, file=sys.stderr)
 
 # Parse from XML HTTP request
@@ -80,10 +80,13 @@ request = urllib2.urlopen(url)
 xml = request.read()
 request.close()
 
+if args.verbosity >= 3:
+	print(xml, file=sys.stderr);
+
 # Get currency exchange rates
 currencies = parseMasterCardXML(xml)
 
-if args.debug:
+if args.verbosity >= 2:
 	for currency in currencies:
 		print(currencies[currency], file=sys.stderr)
 
