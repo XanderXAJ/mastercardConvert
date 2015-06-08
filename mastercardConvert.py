@@ -48,12 +48,12 @@ def parseMasterCardXML(xml):
 
 
 # Parse command line arguments
-parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates", epilog='If no date is specified, today\'s date is used.')
+parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates", epilog='Dates are used in the following order: --date, --recent, --yesterday, today')
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency to convert to to_currency')
 parser.add_argument('from_currency', type=string.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
 parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
 parser.add_argument('-d', '--date', help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
-parser.add_argument('-r', '--recent', action='store_true', help='Use most recent date that exchange rates were release for')
+parser.add_argument('-r', '--recent', action='store_true', help='Use most recent date that exchange rates are available for')
 parser.add_argument('-v', '--verbosity', action='count', help='Increases output verbosity; specify multiple times for more')
 parser.add_argument('-y', '--yesterday', action='count', help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 args = parser.parse_args()
