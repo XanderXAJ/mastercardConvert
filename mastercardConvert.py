@@ -21,14 +21,40 @@ MASTERCARD_RATE_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=
 
 
 
+def makeMasterCardRequest(url, verbosity=0):
+	if verbosity >= 1:
+		print('Request URL:', url, file=sys.stderr)
+
+	# Parse from XML HTTP request
+	request = urllib2.urlopen(url)
+	xml = request.read()
+	request.close()
+
+	if verbosity >= 3:
+		print(xml, file=sys.stderr);
+
+	# Get currency exchange rates
+	currencies, settlement_date = parseMasterCardXML(xml)
+
+	if verbosity >= 2:
+		print('Settlement date:', settlement_date, file=sys.stderr)
+		for currency in currencies:
+			print(currencies[currency], file=sys.stderr)
+
+	return currencies, settlement_date
+
+
+
 # Reads a MasterCard XML string, returns a dictionary of currencies and their exchange rates,
 # using their code (e.g. GBP, USD etc.) as the key.
 def parseMasterCardXML(xml):
 	root = ET.fromstring(xml)
 
+	# Get settlement date of excahnge rates
+	settlement_date = root.findtext('./SETTLEMENT_DATE')
+
 	# Get all currency elements
 	xmlCurrencies = root.findall('./TRANSACTION_CURRENCY/')
-
 
 	# Extract currency info from XML
 	currencies = {}
@@ -43,7 +69,7 @@ def parseMasterCardXML(xml):
 		# Store currencies so they are looked up by their key
 		currencies[currency['code']] = currency
 
-	return currencies
+	return currencies, settlement_date
 
 
 
@@ -71,26 +97,10 @@ else: # Today
 	args.date = datetime.date.today().strftime(DATE_FORMAT)
 
 
-# Figure out URL
+# Get exchange rates from MasterCard
 url = MASTERCARD_RATE_URL.format(from_currency=args.from_currency, date=args.date)
+currencies, settlement_date = makeMasterCardRequest(url, verbosity=args.verbosity)
 
-if args.verbosity >= 1:
-	print('MasterCard XML URL:', url, file=sys.stderr)
-
-# Parse from XML HTTP request
-request = urllib2.urlopen(url)
-xml = request.read()
-request.close()
-
-if args.verbosity >= 3:
-	print(xml, file=sys.stderr);
-
-# Get currency exchange rates
-currencies = parseMasterCardXML(xml)
-
-if args.verbosity >= 2:
-	for currency in currencies:
-		print(currencies[currency], file=sys.stderr)
 
 # If no rates were returned, output an error message and exit
 if len(currencies.keys()) == 0:
