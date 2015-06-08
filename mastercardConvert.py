@@ -53,7 +53,7 @@ parser.add_argument('from_currency', type=string.upper, help='The currency to co
 parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
 parser.add_argument('-y', '--yesterday', action='count', help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 parser.add_argument('-d', '--date', help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
-parser.add_argument('-v', '--verbosity', action='count', default=0, help='Increases output verbosity; specify multiple times for more')
+parser.add_argument('-v', '--verbosity', action='count', help='Increases output verbosity; specify multiple times for more')
 args = parser.parse_args()
 
 if args.verbosity >= 1:
