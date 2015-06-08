@@ -16,7 +16,8 @@ import urllib2
 
 
 DATE_FORMAT = '%m/%d/%Y'
-MASTERCARD_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getExchngRateDetails&baseCurrency={from_currency}&settlementDate={date}'
+MASTERCARD_INIT_URL='https://www.mastercard.com/psder/eu/callPsder.do?service=loadInitialValues'
+MASTERCARD_RATE_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getExchngRateDetails&baseCurrency={from_currency}&settlementDate={date}'
 
 
 
@@ -71,7 +72,7 @@ else: # Today
 
 
 # Figure out URL
-url = MASTERCARD_URL.format(from_currency=args.from_currency, date=args.date)
+url = MASTERCARD_RATE_URL.format(from_currency=args.from_currency, date=args.date)
 
 if args.verbosity >= 1:
 	print('MasterCard XML URL:', url, file=sys.stderr)
