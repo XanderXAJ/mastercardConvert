@@ -115,7 +115,7 @@ if len(currencies.keys()) == 0:
 			3) The date used is too far in the past;
 			4) The from_currency does not exist in MasterCard's response.
 
-		If the date used was today's and you got this message, try --yesterday.
+		To get the most recent exchange rates that MasterCard released, try --recent.
 		This may mean the exchange rate does not accurately reflect the transaction's,
 		but differences tend to be small.
 	'''), file=sys.stderr)
