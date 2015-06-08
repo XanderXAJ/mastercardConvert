@@ -16,7 +16,32 @@ import urllib2
 
 
 DATE_FORMAT = '%m/%d/%Y'
-MASTERCARD_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getExchngRateDetails&baseCurrency={from_currency}&settlementDate={date}'
+MASTERCARD_INIT_URL='https://www.mastercard.com/psder/eu/callPsder.do?service=loadInitialValues'
+MASTERCARD_RATE_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getExchngRateDetails&baseCurrency={from_currency}&settlementDate={date}'
+
+
+
+def makeMasterCardRequest(url, verbosity=0):
+	if verbosity >= 1:
+		print('Request URL:', url, file=sys.stderr)
+
+	# Parse from XML HTTP request
+	request = urllib2.urlopen(url)
+	xml = request.read()
+	request.close()
+
+	if verbosity >= 3:
+		print(xml, file=sys.stderr);
+
+	# Get currency exchange rates
+	currencies, settlement_date = parseMasterCardXML(xml)
+
+	if verbosity >= 2:
+		print('Settlement date:', settlement_date, file=sys.stderr)
+		for currency in currencies:
+			print(currencies[currency], file=sys.stderr)
+
+	return currencies, settlement_date
 
 
 
@@ -25,9 +50,11 @@ MASTERCARD_URL = 'https://www.mastercard.com/psder/eu/callPsder.do?service=getEx
 def parseMasterCardXML(xml):
 	root = ET.fromstring(xml)
 
+	# Get settlement date of excahnge rates
+	settlement_date = root.findtext('./SETTLEMENT_DATE')
+
 	# Get all currency elements
 	xmlCurrencies = root.findall('./TRANSACTION_CURRENCY/')
-
 
 	# Extract currency info from XML
 	currencies = {}
@@ -42,18 +69,19 @@ def parseMasterCardXML(xml):
 		# Store currencies so they are looked up by their key
 		currencies[currency['code']] = currency
 
-	return currencies
+	return currencies, settlement_date
 
 
 
 # Parse command line arguments
-parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates", epilog='If no date is specified, today\'s date is used.')
+parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates", epilog='Dates are used in the following order: --date, --recent, --yesterday, today')
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency to convert to to_currency')
 parser.add_argument('from_currency', type=string.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
 parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
-parser.add_argument('-y', '--yesterday', action='count', help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 parser.add_argument('-d', '--date', help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
-parser.add_argument('-v', '--verbosity', action='count', default=0, help='Increases output verbosity; specify multiple times for more')
+parser.add_argument('-r', '--recent', action='store_true', help='Use most recent date that exchange rates are available for')
+parser.add_argument('-v', '--verbosity', action='count', help='Increases output verbosity; specify multiple times for more')
+parser.add_argument('-y', '--yesterday', action='count', help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 args = parser.parse_args()
 
 if args.verbosity >= 1:
@@ -63,32 +91,18 @@ if args.verbosity >= 1:
 # Date precedence goes: --date > --yesterday > today
 if args.date is not None: # User-specified date
 	args.date = parse_date(args.date).strftime(DATE_FORMAT)
+elif args.recent: # Use most recent date, discover date from MasterCard init call
+	_, args.date = makeMasterCardRequest(MASTERCARD_INIT_URL, verbosity=args.verbosity)
 elif args.yesterday > 0: # Yesterday
 	args.date = (datetime.date.today() - datetime.timedelta(days=args.yesterday)).strftime(DATE_FORMAT)
 else: # Today
 	args.date = datetime.date.today().strftime(DATE_FORMAT)
 
 
-# Figure out URL
-url = MASTERCARD_URL.format(from_currency=args.from_currency, date=args.date)
+# Get exchange rates from MasterCard
+url = MASTERCARD_RATE_URL.format(from_currency=args.from_currency, date=args.date)
+currencies, settlement_date = makeMasterCardRequest(url, verbosity=args.verbosity)
 
-if args.verbosity >= 1:
-	print('MasterCard XML URL:', url, file=sys.stderr)
-
-# Parse from XML HTTP request
-request = urllib2.urlopen(url)
-xml = request.read()
-request.close()
-
-if args.verbosity >= 3:
-	print(xml, file=sys.stderr);
-
-# Get currency exchange rates
-currencies = parseMasterCardXML(xml)
-
-if args.verbosity >= 2:
-	for currency in currencies:
-		print(currencies[currency], file=sys.stderr)
 
 # If no rates were returned, output an error message and exit
 if len(currencies.keys()) == 0:
@@ -101,7 +115,7 @@ if len(currencies.keys()) == 0:
 			3) The date used is too far in the past;
 			4) The from_currency does not exist in MasterCard's response.
 
-		If the date used was today's and you got this message, try --yesterday.
+		To get the most recent exchange rates that MasterCard released, try --recent.
 		This may mean the exchange rate does not accurately reflect the transaction's,
 		but differences tend to be small.
 	'''), file=sys.stderr)
