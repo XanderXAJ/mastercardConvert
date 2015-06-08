@@ -91,6 +91,8 @@ if args.verbosity >= 1:
 # Date precedence goes: --date > --yesterday > today
 if args.date is not None: # User-specified date
 	args.date = parse_date(args.date).strftime(DATE_FORMAT)
+elif args.recent: # Use most recent date, discover date from MasterCard init call
+	_, args.date = makeMasterCardRequest(MASTERCARD_INIT_URL, verbosity=args.verbosity)
 elif args.yesterday > 0: # Yesterday
 	args.date = (datetime.date.today() - datetime.timedelta(days=args.yesterday)).strftime(DATE_FORMAT)
 else: # Today
