@@ -5,6 +5,13 @@ Command line interface to MasterCard currency conversions.
 
 It uses the currencies as can be found in the [MasterCard Currency Conversion Tool](https://www.mastercard.com/global/currencyconversion/index.html).
 
+# How do I install it?
+
+1. Clone the repository.
+2. Install the script's dependencies
+
+		pip install -r requirements.txt
+
 # How do I use it?
 
 To use it, simply call the script with the amount you're converting, and the currency before and after.
