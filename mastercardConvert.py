@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # For printing to stderr
 from __future__ import print_function
 from dateutil.parser import parse as parse_date
