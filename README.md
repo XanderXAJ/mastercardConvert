@@ -27,7 +27,7 @@ Linux:
 python2 mastercardConvert.py --recent 10 USD GBP
 
 Windows:
-py -2 mastercardConvert.py --recent 10 USD GBP
+py mastercardConvert.py --recent 10 USD GBP
 ```
 
 # Known issues
