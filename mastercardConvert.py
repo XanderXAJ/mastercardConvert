@@ -78,8 +78,9 @@ parser.add_argument('from_quantity', type=float, help='Quantity of from_currency
 parser.add_argument('from_currency', type=string.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
 parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
 parser.add_argument('-d', '--date', help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
-parser.add_argument('-r', '--recent', action='store_true', help='Use most recent date that exchange rates are available for')
+parser.add_argument('-r', '--recent', action='store_true', default=True, help='Use most recent date that exchange rates are available for (default)')
 parser.add_argument('-v', '--verbosity', action='count', help='Increases output verbosity; specify multiple times for more')
+parser.add_argument('-t', '--today', action='store_true', help='Use today\'s exchange rates. This may error if today\' rates have not been uploaded')
 parser.add_argument('-y', '--yesterday', action='count', help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 args = parser.parse_args()
 
@@ -90,11 +91,11 @@ if args.verbosity >= 1:
 # Date precedence goes: --date > --yesterday > today
 if args.date is not None: # User-specified date
 	args.date = parse_date(args.date).strftime(DATE_FORMAT)
-elif args.recent: # Use most recent date, discover date from MasterCard init call
+elif args.today: # Today
 	_, args.date = makeMasterCardRequest(MASTERCARD_INIT_URL, verbosity=args.verbosity)
 elif args.yesterday > 0: # Yesterday
 	args.date = (datetime.date.today() - datetime.timedelta(days=args.yesterday)).strftime(DATE_FORMAT)
-else: # Today
+else: # Use most recent date with published rates, discover date from initial MasterCard call
 	args.date = datetime.date.today().strftime(DATE_FORMAT)
 
 
