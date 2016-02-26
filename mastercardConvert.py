@@ -11,7 +11,7 @@ import xml.etree.ElementTree as ET
 import sys
 import string
 import textwrap
-import urllib2
+import requests
 
 
 
@@ -26,9 +26,8 @@ def makeMasterCardRequest(url, verbosity=0):
 		print('Request URL:', url, file=sys.stderr)
 
 	# Parse from XML HTTP request
-	request = urllib2.urlopen(url)
-	xml = request.read()
-	request.close()
+	request = requests.get(url)
+	xml = request.text
 
 	if verbosity >= 3:
 		print(xml, file=sys.stderr);
