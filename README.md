@@ -23,7 +23,11 @@ To use it, simply call the script with the amount you're converting, and the cur
 For example, if I had paid 10 US Dollars and wanted to know how much that was in British Pound Sterling:
 
 ```shell
-python mastercardConvert.py 10 USD GBP
+Linux:
+python2 mastercardConvert.py --recent 10 USD GBP
+
+Windows:
+py -2 mastercardConvert.py --recent 10 USD GBP
 ```
 
 # Known issues
