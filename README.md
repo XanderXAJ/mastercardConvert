@@ -8,9 +8,13 @@ It uses the currencies as can be found in the [MasterCard Currency Conversion To
 # How do I install it?
 
 1. Clone the repository.
-2. Install the script's dependencies
+2. Install the script's dependencies:
 
-		pip install -r requirements.txt
+    Linux:
+    pip install -r requirements.txt
+
+    Windows:
+    py -2 -m pip install --upgrade pip
 
 # How do I use it?
 
