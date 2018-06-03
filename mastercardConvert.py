@@ -2,7 +2,6 @@
 
 import argparse
 import logging
-import sys
 from functools import partial
 
 from domain import date, transaction
@@ -11,8 +10,10 @@ from domain import date, transaction
 parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates",
                                  epilog='If no date is specified, the most recent date with rates is used.')
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency used in transaction')
-parser.add_argument('from_currency', type=str.upper, help='The currency to convert from, i.e. the transaction currency, e.g. GBP, USD, JPY')
-parser.add_argument('to_currency', type=str.upper, help='The currency to convert to, i.e. the card currency, e.g. GBP, USD, JPY')
+parser.add_argument('from_currency', type=str.upper,
+                    help='The currency to convert from, i.e. the transaction currency, e.g. GBP, USD, JPY')
+parser.add_argument('to_currency', type=str.upper,
+                    help='The currency to convert to, i.e. the card currency, e.g. GBP, USD, JPY')
 parser.add_argument('-d', '--date',
                     help='Day the exchange was made in format YYYY-MM-DD. Only today and yesterday appear to be supported by MasterCard. Defaults to most recent day with rates.')
 parser.add_argument('--log_level', help='Set logging level', default='WARNING',
@@ -36,7 +37,6 @@ elif args.yesterday > 0:  # Yesterday (note that yesterday can be specified mult
     settle = partial(transaction.settle, exchange_rate_date=date.date_n_days_ago(args.yesterday))
 else:  # Use most recent date with published rates, discover date from initial MasterCard call
     settle = transaction.settle_latest
-
 
 # Get card amount from MasterCard
 transaction = settle(
