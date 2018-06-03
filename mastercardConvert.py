@@ -1,6 +1,4 @@
-#!/usr/bin/env python2
-# For printing to stderr
-from __future__ import print_function
+#!/usr/bin/env python3
 
 import argparse
 import datetime
@@ -70,8 +68,8 @@ def parseMasterCardXML(xml):
 parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates",
                                  epilog='Dates are used in the following order: --date, --recent, --yesterday, today')
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency to convert to to_currency')
-parser.add_argument('from_currency', type=string.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
-parser.add_argument('to_currency', type=string.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
+parser.add_argument('from_currency', type=str.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
+parser.add_argument('to_currency', type=str.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
 parser.add_argument('-d', '--date',
                     help='Day the exchange was made in format MM/DD/YYYY. Only today and yesterday appear to be supported by MasterCard. Defaults to today')
 parser.add_argument('-r', '--recent', action='store_true', default=True,
