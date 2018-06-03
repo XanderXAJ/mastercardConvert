@@ -5,9 +5,10 @@ name = "pypi"
 
 [packages]
 python-dateutil = "==2.4.2"
-requests = "==2.9.1"
+requests = "==2.18.4"
 
 [dev-packages]
+httpretty = "==0.9.4"
 
 [requires]
 python_version = "3.6"

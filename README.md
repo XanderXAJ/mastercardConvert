@@ -47,7 +47,13 @@ python3 -m pip install --user pipenv
 Then install the project's dependencies:
 
 ```bash
-pipenv install
+pipenv install --dev
+```
+
+This project uses `unittest` for testing.  To run the tests:
+
+```bash
+pipenv run python -m unittest
 ```
 
 Use `pipenv run` to run commands inside the virtualenv from outside the virtualenv.
