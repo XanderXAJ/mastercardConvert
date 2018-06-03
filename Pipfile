@@ -1,0 +1,13 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-dateutil = "==2.4.2"
+requests = "==2.9.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.6"
