@@ -7,8 +7,6 @@ from functools import partial
 
 from domain import date, transaction
 
-logging.basicConfig()
-
 # Parse command line arguments
 parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates",
                                  epilog='Dates are used in the following order: --date, --recent, --yesterday, today')
@@ -19,16 +17,17 @@ parser.add_argument('-d', '--date',
                     help='Day the exchange was made in format YYYY-MM-DD. Only today and yesterday appear to be supported by MasterCard. Defaults to most recent day with rates.')
 parser.add_argument('-r', '--recent', action='store_true', default=True,
                     help='Use most recent date that exchange rates are available for (default)')
-parser.add_argument('-v', '--verbosity', action='count', default=0,
-                    help='Increases output verbosity; specify multiple times for more')
+parser.add_argument('--log_level', help='Set logging level', default='WARNING',
+                    type=str.upper,
+                    choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'])
 parser.add_argument('-t', '--today', action='store_true',
                     help='Use today\'s exchange rates. This may error if today\' rates have not been uploaded')
 parser.add_argument('-y', '--yesterday', action='count', default=0,
                     help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 args = parser.parse_args()
 
-if args.verbosity >= 1:
-    print(args, file=sys.stderr)
+logging.basicConfig(level=logging.getLevelName(args.log_level))
+logging.debug(args)
 
 # Figure out which date to use
 # Date precedence goes: --date > --today > --yesterday > most recent rates
