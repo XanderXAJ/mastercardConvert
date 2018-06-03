@@ -9,14 +9,12 @@ from domain import date, transaction
 
 # Parse command line arguments
 parser = argparse.ArgumentParser(description="Convert currency using MasterCard exchange rates",
-                                 epilog='Dates are used in the following order: --date, --recent, --yesterday, today')
+                                 epilog='If no date is specified, the most recent date with rates is used.')
 parser.add_argument('from_quantity', type=float, help='Quantity of from_currency to convert to to_currency')
 parser.add_argument('from_currency', type=str.upper, help='The currency to convert from, e.g. GBP, USD, JPY')
 parser.add_argument('to_currency', type=str.upper, help='The currency to convert to, e.g. GBP, USD, JPY')
 parser.add_argument('-d', '--date',
                     help='Day the exchange was made in format YYYY-MM-DD. Only today and yesterday appear to be supported by MasterCard. Defaults to most recent day with rates.')
-parser.add_argument('-r', '--recent', action='store_true', default=True,
-                    help='Use most recent date that exchange rates are available for (default)')
 parser.add_argument('--log_level', help='Set logging level', default='WARNING',
                     type=str.upper,
                     choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'])
@@ -30,7 +28,6 @@ logging.basicConfig(level=logging.getLevelName(args.log_level))
 logging.debug(args)
 
 # Figure out which date to use
-# Date precedence goes: --date > --today > --yesterday > most recent rates
 if args.date is not None:  # User-specified date
     settle = partial(transaction.settle, exchange_rate_date=date.parse(args.date))
 elif args.today:  # Today
