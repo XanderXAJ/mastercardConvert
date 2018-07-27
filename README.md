@@ -31,7 +31,7 @@ To use it, simply call the script with the amount you're converting, and the cur
 For example, if I had paid 10 US Dollars and wanted to know how much that was in British Pound Sterling:
 
 ```shell
-pipenv run ./mastercardConvert.py --recent 10 USD GBP
+pipenv run ./mastercardConvert.py 10 USD GBP
 ```
 
 ## Development
@@ -61,6 +61,6 @@ Use `pipenv shell` to get a shell inside the virtualenv.
 
 ## Known issues
 
-MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.  This means that sometimes the exchange rates for today might not be available.  If this happens to you, try `--yesterday`.  While it means that the exchange rates my not accurately reflect what is used in your transaction, the differences tend to be small.
+MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.  This means that sometimes the exchange rates for today might not be available.  If this happens, the script will automatically use yesterday's rates.  While it means that the exchange rates my not accurately reflect what is used in your transaction, the differences tend to be small.
 
-MasterCard don't publish new exchange rates on Saturdays or Sundays.  Not much I can do there!
+MasterCard don't publish new exchange rates on Saturdays or Sundays.  Not much that can be done there!
