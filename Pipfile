@@ -11,4 +11,4 @@ requests = "==2.18.4"
 httpretty = "==0.9.4"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
