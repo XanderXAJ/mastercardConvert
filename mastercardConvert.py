@@ -20,7 +20,7 @@ parser.add_argument('--log_level', help='Set logging level', default='WARNING',
                     type=str.upper,
                     choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'])
 parser.add_argument('-t', '--today', action='store_true',
-                    help='Use today\'s exchange rates. This may error if today\' rates have not been uploaded')
+                    help='Use today\'s exchange rates. This may error if today\'s rates have not been uploaded')
 parser.add_argument('-y', '--yesterday', action='count', default=0,
                     help='Uses yesterday\'s exchange rates. Repeat to go further back in time')
 args = parser.parse_args()
