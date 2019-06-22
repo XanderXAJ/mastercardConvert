@@ -8,7 +8,7 @@ python-dateutil = "==2.8.0"
 requests = "==2.22.0"
 
 [dev-packages]
-httpretty = "==0.9.4"
+httpretty = "==0.9.6"
 
 [requires]
 python_version = "3.7"
