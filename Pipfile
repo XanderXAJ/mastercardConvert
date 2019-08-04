@@ -9,6 +9,7 @@ requests = "==2.22.0"
 
 [dev-packages]
 httpretty = "==0.9.6"
+pylint = "*"
 
 [requires]
 python_version = "3.7"
