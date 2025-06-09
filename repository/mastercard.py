@@ -3,13 +3,11 @@ import string
 
 import requests
 
-CURRENCY_URL = 'https://www.mastercard.us/settlement/currencyrate/settlement-currencies'
-RATE_URL = string.Template(
-    'https://www.mastercard.us/settlement/currencyrate/fxDate=$exchange_rate_date;transCurr=$transaction_currency;crdhldBillCurr=$card_currency;bankFee=$bank_fee_percentage;transAmt=$transaction_amount/conversion-rate')
-RATE_ISSUED_URL = string.Template(
-    'https://www.mastercard.us/settlement/currencyrate/conversion-rate-issued?date=$exchange_rate_date')
-REFERRER_URL = 'https://www.mastercard.us/en-us/consumers/get-support/convert-currency.html'
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64; rv:59.0) Gecko/20100101 Firefox/59.0'
+CURRENCY_URL = ('https://www.mastercard.com/settlement/currencyrate/settlement-currencies')
+RATE_URL = string.Template('https://www.mastercard.com/settlement/currencyrate/conversion-rate?fxDate=$exchange_rate_date&transCurr=$transaction_currency&crdhldBillCurr=$card_currency&bankFee=$bank_fee_percentage&transAmt=$transaction_amount')
+RATE_ISSUED_URL = string.Template('https://www.mastercard.com/settlement/currencyrate/conversion-rate-issued?date=$exchange_rate_date')
+REFERRER_URL = ('https://www.mastercard.com/global/en/personal/get-support/convert-currency.html')
+USER_AGENT = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0')
 
 
 def settle(transaction_amount, transaction_currency, card_currency, exchange_rate_date, bank_fee_percentage):

@@ -19,13 +19,13 @@ def settle(transaction_amount, transaction_currency, card_currency, exchange_rat
     logging.debug(result)
 
     return {
-        'bank_fee_percentage': result['bankFee'],
-        'card_amount': result['crdhldBillAmt'],
-        'card_currency': result['crdhldBillCurr'],
-        'conversion_rate': result['conversionRate'],
-        'conversion_rate_date': result['fxDate'],
-        'transaction_amount': result['transAmt'],
-        'transaction_currency': result['transCurr'],
+        "bank_fee_percentage": bank_fee_percentage,
+        "card_amount": result["crdhldBillAmt"],
+        "card_currency": result["crdhldBillCurr"],
+        "conversion_rate": result["conversionRate"],
+        "conversion_rate_date": result["fxDate"],
+        "transaction_amount": result["transAmt"],
+        "transaction_currency": result["transCurr"],
     }
 
 

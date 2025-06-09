@@ -12,7 +12,7 @@ class TestMastercardSettle(unittest.TestCase):
     def test_success(self):
         httpretty.register_uri(
             httpretty.GET,
-            'https://www.mastercard.us/settlement/currencyrate/fxDate=2018-06-03;transCurr=USD;crdhldBillCurr=GBP;bankFee=0;transAmt=10/conversion-rate',
+            'https://www.mastercard.com/settlement/currencyrate/conversion-rate?fxDate=2018-06-03&transCurr=USD&crdhldBillCurr=GBP&bankFee=0&transAmt=10',
             self.valid_response(),
         )
 
@@ -29,7 +29,7 @@ class TestMastercardSettle(unittest.TestCase):
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
             httpretty.GET,
-            'https://www.mastercard.us/settlement/currencyrate/fxDate=2018-06-03;transCurr=USD;crdhldBillCurr=GBP;bankFee=0;transAmt=10/conversion-rate',
+            'https://www.mastercard.com/settlement/currencyrate/conversion-rate?fxDate=2018-06-03&transCurr=USD&crdhldBillCurr=GBP&bankFee=0&transAmt=10',
             status=400
         )
 
@@ -55,7 +55,6 @@ class TestMastercardSettle(unittest.TestCase):
                 "transCurr": "USD",
                 "crdhldBillCurr": "GBP",
                 "transAmt": 10,
-                "bankFee": 0
             }
         })
 
@@ -65,7 +64,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
     def test_success_true(self):
         httpretty.register_uri(
             httpretty.GET,
-            'https://www.mastercard.us/settlement/currencyrate/conversion-rate-issued?date=2018-06-03',
+            'https://www.mastercard.com/settlement/currencyrate/conversion-rate-issued?date=2018-06-03',
             self.valid_response('YES'),
         )
 
@@ -76,7 +75,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
     def test_success_false(self):
         httpretty.register_uri(
             httpretty.GET,
-            'https://www.mastercard.us/settlement/currencyrate/conversion-rate-issued?date=2018-06-03',
+            'https://www.mastercard.com/settlement/currencyrate/conversion-rate-issued?date=2018-06-03',
             self.valid_response('NO'),
         )
 
@@ -87,7 +86,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
             httpretty.GET,
-            'https://www.mastercard.us/settlement/currencyrate/conversion-rate-issued?date=2018-06-03',
+            'https://www.mastercard.com/settlement/currencyrate/conversion-rate-issued?date=2018-06-03',
             status=400
         )
 
