@@ -50,6 +50,20 @@ For example, if I had paid 10 US Dollars and wanted to know how much that was in
 mc 10 USD GBP
 ```
 
+## Update
+
+Run either of the following:
+
+```shell
+# Reinstall/refresh using original installation method
+pipx reinstall mastercardconvert
+```
+
+```shell
+# Override installation method to local code
+pipx install . --force
+```
+
 ## Development
 
 For development, this project uses [Poetry][poetry] to isolate its environment.
@@ -72,6 +86,8 @@ poetry run python -m mc 10 usd gbp
 ```
 
 Note: `-m` is used to ensure imports work in the same way as they do when installing via `pipx`.
+
+To test installations, follow the **Update** instructions above.
 
 This project uses `unittest` for testing.
 To run the tests:
