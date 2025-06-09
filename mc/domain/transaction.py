@@ -1,8 +1,8 @@
 import datetime
 import logging
 
-import repository.mastercard as mastercard
-from domain import date
+from mc.repository import mastercard
+from . import date
 
 DATE_FORMAT = '%Y-%m-%d'
 

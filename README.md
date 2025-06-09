@@ -1,27 +1,30 @@
-MasterCard Currency Converter
-=============================
+# MasterCard Currency Converter
 
 Command line interface to MasterCard currency conversions.
 
 It uses the currencies as can be found in the [MasterCard Currency Conversion Tool](https://www.mastercard.com/global/currencyconversion/index.html).
 
+## Requirements
+
+This project uses [Python 3][python] & [pipx][pipx].
+
+[pipx]: https://github.com/pypa/pipx
+[python]: https://www.python.org/
+
 ## Installation
 
-1.  Clone the repository.
-2.  Install the script's dependencies:
+1. Clone the repository.
+2. [Install pipx][pipx].
+3. Install the project:
 
-    Linux:
-    ```
-    python3 -m pip install --user pipenv
-    pipenv install
-    pipenv run ...
+    ```shell
+    pipx install .
     ```
 
-    Windows:
-    ```
-    py -3 -m pip install --user pipenv
-    pipenv install
-    pipenv run ...
+4. Run the project:
+
+    ```shell
+    mc 10 USD GBP
     ```
 
 ## Usage
@@ -31,33 +34,43 @@ To use it, simply call the script with the amount you're converting, and the cur
 For example, if I had paid 10 US Dollars and wanted to know how much that was in British Pound Sterling:
 
 ```shell
-pipenv run ./mastercardConvert.py 10 USD GBP
+mc 10 USD GBP
 ```
 
 ## Development
 
-This project uses `python3`.
-
-This project uses `pipenv` to isolate its environment.  Install it with:
+For development, this project uses [Poetry][poetry] to isolate its environment.
+You can install and manage it with [pipx][pipx] (recommended), or refer to [its instructions][poetry] for other options:
 
 ```bash
-python3 -m pip install --user pipenv
+pipx install poetry
 ```
 
 Then install the project's dependencies:
 
 ```bash
-pipenv install --dev
+poetry install
 ```
 
-This project uses `unittest` for testing.  To run the tests:
+Run the in-progress version of the code:
 
 ```bash
-pipenv run python -m unittest
+poetry run python -m mc 10 usd gbp
 ```
 
-Use `pipenv run` to run commands inside the virtualenv from outside the virtualenv.
-Use `pipenv shell` to get a shell inside the virtualenv.
+Note: `-m` is used to ensure imports work in the same way as they do when installing via `pipx`.
+
+This project uses `unittest` for testing.
+To run the tests:
+
+```bash
+poetry run python -m unittest
+```
+
+Use `poetry run` to run commands inside the virtualenv from outside the virtualenv.
+Use `poetry shell` to get a shell inside the virtualenv.
+
+[poetry]: https://python-poetry.org/
 
 ## Known issues
 
