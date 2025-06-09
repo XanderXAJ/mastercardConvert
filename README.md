@@ -11,25 +11,38 @@ This project uses [Python 3][python] & [pipx][pipx].
 [pipx]: https://github.com/pypa/pipx
 [python]: https://www.python.org/
 
-## Installation
+## Quick installation
+
+1. [Use pipx][pipx] to install from source:
+
+    ```shell
+    pipx install git+https://github.com/XanderXAJ/mastercardConvert.git
+    ```
+
+2. Run the project via `mc`:
+
+    ```shell
+    mc 10 usd gbp
+    ```
+
+## Source Installation
 
 1. Clone the repository.
-2. [Install pipx][pipx].
-3. Install the project:
+2. [Use pipx][pipx] to install the project:
 
     ```shell
     pipx install .
     ```
 
-4. Run the project:
+3. Run the project via `mc`:
 
     ```shell
-    mc 10 USD GBP
+    mc 10 usd gbp
     ```
 
 ## Usage
 
-To use it, simply call the script with the amount you're converting, and the currency before and after.
+To use it, simply call `mc` with the amount you're converting, and the currency before and after.
 
 For example, if I had paid 10 US Dollars and wanted to know how much that was in British Pound Sterling:
 
