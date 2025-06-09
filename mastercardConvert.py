@@ -16,7 +16,7 @@ parser.add_argument('to_currency', type=str.upper,
                     help='The currency to convert to, i.e. the card currency, e.g. GBP, USD, JPY')
 parser.add_argument('-d', '--date',
                     help='Day the exchange was made in format YYYY-MM-DD. Only today and yesterday appear to be supported by MasterCard. Defaults to most recent day with rates.')
-parser.add_argument('--log_level', help='Set logging level', default='WARNING',
+parser.add_argument('--log-level', help='Set logging level', default='WARNING',
                     type=str.upper,
                     choices=['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG'])
 parser.add_argument('-t', '--today', action='store_true',
