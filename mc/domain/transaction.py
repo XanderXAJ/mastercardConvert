@@ -30,10 +30,4 @@ def settle(transaction_amount, transaction_currency, card_currency, exchange_rat
 
 
 def settle_latest(transaction_amount, transaction_currency, card_currency, bank_fee_percentage=0):
-    date_today = date.date_today()
-    if mastercard.rates_available(date_today):
-        exchange_rate_date = date_today
-    else:
-        exchange_rate_date = date.date_yesterday()
-
-    return settle(transaction_amount, transaction_currency, card_currency, exchange_rate_date, bank_fee_percentage)
+    return settle(transaction_amount, transaction_currency, card_currency, "0000-00-00", bank_fee_percentage)

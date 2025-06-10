@@ -103,6 +103,9 @@ Use `poetry shell` to get a shell inside the virtualenv.
 
 ## Known issues
 
-MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.  This means that sometimes the exchange rates for today might not be available.  If this happens, the script will automatically use yesterday's rates.  While it means that the exchange rates my not accurately reflect what is used in your transaction, the differences tend to be small.
+MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.
+This means that sometimes the exchange rates for today might not be available.
+The script automatically uses the latest rates by default.
+While it means that the exchange rates my not accurately reflect what is used in your transaction, the differences tend to be small.
 
 MasterCard don't publish new exchange rates on Saturdays or Sundays.  Not much that can be done there!
