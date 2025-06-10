@@ -12,9 +12,9 @@ def main():
                                     epilog='If no date is specified, the most recent date with rates is used.')
     parser.add_argument('from_quantity', type=float, help='Quantity of from_currency used in transaction')
     parser.add_argument('from_currency', type=str.upper,
-                        help='The currency to convert from, i.e. the transaction currency, e.g. GBP, USD, JPY')
+                        help='The currency to convert from, i.e. the transaction currency, case-insensitive, e.g. GBP, usd, JPY')
     parser.add_argument('to_currency', type=str.upper,
-                        help='The currency to convert to, i.e. the card currency, e.g. GBP, USD, JPY')
+                        help='The currency to convert to, i.e. the card currency, case-insensitive, e.g. GBP, usd, JPY')
     parser.add_argument('-d', '--date',
                         help='Day the exchange was made in format YYYY-MM-DD. Only today and yesterday appear to be supported by MasterCard. Defaults to most recent day with rates.')
     parser.add_argument('--log-level', help='Set logging level', default='WARNING',

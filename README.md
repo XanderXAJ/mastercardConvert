@@ -44,10 +44,10 @@ This project uses [Python 3][python] & [pipx][pipx].
 
 To use it, simply call `mc` with the amount you're converting, and the currency before and after.
 
-For example, if I had paid 10 US Dollars and wanted to know how much that was in British Pound Sterling:
+For example, if I had paid 10 US Dollars and wanted to know how much that was in British Pound Sterling (you can use lower or upper case for currencies):
 
 ```shell
-mc 10 USD GBP
+mc 10 usd gbp
 ```
 
 ## Update
