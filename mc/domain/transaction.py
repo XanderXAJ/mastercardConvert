@@ -1,8 +1,6 @@
-import datetime
 import logging
 
 from mc.repository import mastercard
-from . import date
 
 DATE_FORMAT = '%Y-%m-%d'
 

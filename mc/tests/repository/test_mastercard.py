@@ -4,7 +4,8 @@ import unittest
 import httpretty
 from requests import HTTPError
 
-import repository.mastercard as mastercard
+from repository import mastercard
+import pytest
 
 
 @httpretty.activate
@@ -24,7 +25,7 @@ class TestMastercardSettle(unittest.TestCase):
             transaction_currency='USD',
         )
 
-        self.assertEqual(result['crdhldBillAmt'], 7.542870)
+        assert result['crdhldBillAmt'] == 7.54287
 
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
@@ -33,7 +34,7 @@ class TestMastercardSettle(unittest.TestCase):
             status=400
         )
 
-        with self.assertRaises(HTTPError):
+        with pytest.raises(HTTPError):
             mastercard.settle(
                 bank_fee_percentage=0,
                 card_currency='GBP',
@@ -70,7 +71,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
 
         result = mastercard.rates_available('2018-06-03')
 
-        self.assertEqual(result, True)
+        assert result
 
     def test_success_false(self):
         httpretty.register_uri(
@@ -81,7 +82,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
 
         result = mastercard.rates_available('2018-06-03')
 
-        self.assertEqual(result, False)
+        assert not result
 
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
@@ -90,7 +91,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
             status=400
         )
 
-        with self.assertRaises(HTTPError):
+        with pytest.raises(HTTPError):
             mastercard.rates_available('2018-06-03')
 
     @staticmethod
