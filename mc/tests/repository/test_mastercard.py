@@ -24,7 +24,7 @@ class TestMastercardSettle(unittest.TestCase):
             transaction_currency='USD',
         )
 
-        assert result['crdhldBillAmt'] == 7.54287
+        self.assertEqual(result['crdhldBillAmt'], 7.542870)
 
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
@@ -70,7 +70,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
 
         result = mastercard.rates_available('2018-06-03')
 
-        assert result
+        self.assertTrue(result)
 
     def test_success_false(self):
         httpretty.register_uri(
@@ -81,7 +81,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
 
         result = mastercard.rates_available('2018-06-03')
 
-        assert not result
+        self.assertFalse(result)
 
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
