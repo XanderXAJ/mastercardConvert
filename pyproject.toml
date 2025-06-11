@@ -2,28 +2,30 @@
 name = "mastercardconvert"
 version = "0.1.1"
 description = "Command line interface to MasterCard currency conversions"
-authors = [
-    { name = "Alex Palmer", email = "XanderXAJ@users.noreply.github.com" },
-]
-license = { text = "GNU General Public License v3.0" }
-readme = "README.md"
+authors = [{ name = "Alex Palmer", email = "XanderXAJ@users.noreply.github.com" }]
 requires-python = ">=3.13"
+readme = "README.md"
+license = { text = "GNU General Public License v3.0" }
 dependencies = [
     "python-dateutil (>=2.9.0.post0,<3.0.0)",
     "requests (>=2.32.4,<3.0.0)",
 ]
 
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry]
-packages = [{ include = "mc" }]
-
-[tool.poetry.group.dev.dependencies]
-httpretty = "^1.1.4"
-pylint = "^3.3.7"
-
 [project.scripts]
 mc = "mc.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "httpretty>=1.1.4,<2",
+    "pylint>=3.3.7,<4",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["mc"]
+
+[tool.hatch.build.targets.wheel]
+include = ["mc"]
