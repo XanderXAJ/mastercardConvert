@@ -5,7 +5,7 @@ from domain import transaction
 
 
 class TestTransactionSettle(unittest.TestCase):
-    @patch('repository.mastercard.settle')
+    @patch('mc.repository.mastercard.settle')
     def test_success_return(self, settle_mock):
         settle_mock.return_value = self.valid_settle_return_value()
 
@@ -26,7 +26,7 @@ class TestTransactionSettle(unittest.TestCase):
             'transaction_currency': 'USD',
         })
 
-    @patch('repository.mastercard.settle')
+    @patch('mc.repository.mastercard.settle')
     def test_success_call(self, settle_mock):
         settle_mock.return_value = self.valid_settle_return_value()
 
@@ -45,7 +45,7 @@ class TestTransactionSettle(unittest.TestCase):
             transaction_currency='USD',
         )
 
-    @patch('repository.mastercard.settle')
+    @patch('mc.repository.mastercard.settle')
     def test_success_call_with_bank_fee(self, settle_mock):
         settle_mock.return_value = self.valid_settle_return_value()
 

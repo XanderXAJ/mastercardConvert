@@ -93,7 +93,7 @@ This project uses `unittest` for testing.
 To run the tests:
 
 ```bash
-poetry run python -m unittest
+poetry run python -m unittest discover -s mc
 ```
 
 Use `poetry run` to run commands inside the virtualenv from outside the virtualenv.
