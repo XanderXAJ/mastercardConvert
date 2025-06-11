@@ -1,6 +1,6 @@
 [project]
 name = "mastercardconvert"
-version = "0.1.0"
+version = "0.1.1"
 description = "Command line interface to MasterCard currency conversions"
 authors = [
     { name = "Alex Palmer", email = "XanderXAJ@users.noreply.github.com" },
