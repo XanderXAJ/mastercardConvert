@@ -13,7 +13,7 @@ This project uses [Python 3][python] & [pipx][pipx].
 
 ## Quick installation
 
-1. Use your favourite tool manager to install from source:
+1. Use your favourite tool manager to install directly from source:
 
     ```shell
     # uv
@@ -31,9 +31,12 @@ This project uses [Python 3][python] & [pipx][pipx].
 ## Source Installation
 
 1. Clone the repository.
-2. [Use pipx][pipx] to install the project:
+2. Use your favourite tool manager to install from source:
 
     ```shell
+    # uv
+    uv tool install .
+    # pipx
     pipx install .
     ```
 
@@ -55,40 +58,41 @@ mc 10 usd gbp
 
 ## Update
 
-Run either of the following:
+Run the appropriate for your tool manager:
+
+`uv`:
+
+```shell
+# Direct source install
+uv tool install --reinstall git+https://github.com/XanderXAJ/mastercardConvert.git
+# Local clone install
+uv tool install --reinstall .
+```
+
+`pipx`:
 
 ```shell
 # Reinstall/refresh using original installation method
 pipx reinstall mastercardconvert
-```
-
-```shell
 # Override installation method to local code
 pipx install . --force
 ```
 
 ## Development
 
-For development, this project uses [Poetry][poetry] to isolate its environment.
-You can install and manage it with [pipx][pipx] (recommended), or refer to [its instructions][poetry] for other options:
-
-```bash
-pipx install poetry
-```
-
-Then install the project's dependencies:
-
-```bash
-poetry install
-```
+For development, this project uses [uv][uv] to isolate its environment.
+[Follow its installation instructions.](https://docs.astral.sh/uv/getting-started/installation/)
 
 Run the in-progress version of the code:
 
 ```bash
-poetry run python -m mc 10 usd gbp
+uv run python -m mc 10 usd gbp
 ```
 
-Note: `-m` is used to ensure imports work in the same way as they do when installing via `pipx`.
+`uv` will automatically create the virtualenv and install dependencies when the environment doesn't exist or is out of date.
+(Use `uv sync` if you want to be sure.)
+
+Note: `-m` is used to ensure imports work in the same way as they do when installing via tool managers.
 
 To test installations, follow the **Update** instructions above.
 
@@ -96,13 +100,12 @@ This project uses `unittest` for testing.
 To run the tests:
 
 ```bash
-poetry run python -m unittest discover -s mc
+uv run python -m unittest discover -s mc
 ```
 
-Use `poetry run` to run commands inside the virtualenv from outside the virtualenv.
-Use `poetry shell` to get a shell inside the virtualenv.
+Use `uv run` to run commands inside the virtualenv from outside the virtualenv.
 
-[poetry]: https://python-poetry.org/
+[uv]: https://docs.astral.sh/uv/
 
 ## Known issues
 
