@@ -13,9 +13,12 @@ This project uses [Python 3][python] & [pipx][pipx].
 
 ## Quick installation
 
-1. [Use pipx][pipx] to install from source:
+1. Use your favourite tool manager to install from source:
 
     ```shell
+    # uv
+    uv tool install git+https://github.com/XanderXAJ/mastercardConvert.git
+    # pipx
     pipx install git+https://github.com/XanderXAJ/mastercardConvert.git
     ```
 
