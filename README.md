@@ -107,6 +107,26 @@ Use `uv run` to run commands inside the virtualenv from outside the virtualenv.
 
 [uv]: https://docs.astral.sh/uv/
 
+### Default branch rename
+
+On 2025-06-11, I renamed the default branch to `main`.
+If you were one of the ~4 or so forks at the time of that happening:
+
+1. Apologies for the inconvenience 😇
+2. Here are instructions to update your repo to the new branch name.
+
+    This does **move and delete branches**, so double-check before running anything, I believe the instructions are correct but I'm not responsible if anything goes wrong, etc. 🙂
+    It also assumes the clone uses an `origin` upstream -- change that if you've used a different name:
+
+    ```shell
+    # Rename branch
+    git branch -m master main
+    # Push the new branch, simultaneously updating the upstream tracking
+    git push -u origin main
+    # Delete the old remote branch
+    git push -d origin master
+    ```
+
 ## Known issues
 
 MasterCard don't tend to publish today's exchange rates until part way through the day; this is also affected by your time zone.
