@@ -5,7 +5,6 @@ import httpretty
 from requests import HTTPError
 
 from repository import mastercard
-import pytest
 
 
 @httpretty.activate
@@ -34,7 +33,7 @@ class TestMastercardSettle(unittest.TestCase):
             status=400
         )
 
-        with pytest.raises(HTTPError):
+        with self.assertRaises(HTTPError):
             mastercard.settle(
                 bank_fee_percentage=0,
                 card_currency='GBP',
@@ -91,7 +90,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
             status=400
         )
 
-        with pytest.raises(HTTPError):
+        with self.assertRaises(HTTPError):
             mastercard.rates_available('2018-06-03')
 
     @staticmethod
