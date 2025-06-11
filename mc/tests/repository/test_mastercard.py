@@ -4,7 +4,7 @@ import unittest
 import httpretty
 from requests import HTTPError
 
-import repository.mastercard as mastercard
+from repository import mastercard
 
 
 @httpretty.activate
@@ -70,7 +70,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
 
         result = mastercard.rates_available('2018-06-03')
 
-        self.assertEqual(result, True)
+        self.assertTrue(result)
 
     def test_success_false(self):
         httpretty.register_uri(
@@ -81,7 +81,7 @@ class TestMastercardRatesAvailable(unittest.TestCase):
 
         result = mastercard.rates_available('2018-06-03')
 
-        self.assertEqual(result, False)
+        self.assertFalse(result)
 
     def test_throws_on_bad_status(self):
         httpretty.register_uri(
