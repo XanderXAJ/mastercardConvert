@@ -2,10 +2,16 @@ import logging
 
 from mc.repository import mastercard
 
-DATE_FORMAT = '%Y-%m-%d'
+DATE_FORMAT = "%Y-%m-%d"
 
 
-def settle(transaction_amount, transaction_currency, card_currency, exchange_rate_date, bank_fee_percentage=0):
+def settle(
+    transaction_amount,
+    transaction_currency,
+    card_currency,
+    exchange_rate_date,
+    bank_fee_percentage=0,
+):
     result = mastercard.settle(
         bank_fee_percentage=bank_fee_percentage,
         card_currency=card_currency,
@@ -27,5 +33,13 @@ def settle(transaction_amount, transaction_currency, card_currency, exchange_rat
     }
 
 
-def settle_latest(transaction_amount, transaction_currency, card_currency, bank_fee_percentage=0):
-    return settle(transaction_amount, transaction_currency, card_currency, "0000-00-00", bank_fee_percentage)
+def settle_latest(
+    transaction_amount, transaction_currency, card_currency, bank_fee_percentage=0
+):
+    return settle(
+        transaction_amount,
+        transaction_currency,
+        card_currency,
+        "0000-00-00",
+        bank_fee_percentage,
+    )

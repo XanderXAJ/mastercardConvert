@@ -2,7 +2,7 @@ import datetime
 
 from dateutil.parser import parse as parse_date
 
-MASTERCARD_DATE_FORMAT = '%Y-%m-%d'
+MASTERCARD_DATE_FORMAT = "%Y-%m-%d"
 
 
 def parse(date):

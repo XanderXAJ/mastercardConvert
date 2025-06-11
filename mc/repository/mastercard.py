@@ -3,14 +3,30 @@ import string
 
 import requests
 
-CURRENCY_URL = ('https://www.mastercard.com/settlement/currencyrate/settlement-currencies')
-RATE_URL = string.Template('https://www.mastercard.com/settlement/currencyrate/conversion-rate?fxDate=$exchange_rate_date&transCurr=$transaction_currency&crdhldBillCurr=$card_currency&bankFee=$bank_fee_percentage&transAmt=$transaction_amount')
-RATE_ISSUED_URL = string.Template('https://www.mastercard.com/settlement/currencyrate/conversion-rate-issued?date=$exchange_rate_date')
-REFERRER_URL = ('https://www.mastercard.com/global/en/personal/get-support/convert-currency.html')
-USER_AGENT = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0')
+CURRENCY_URL = (
+    "https://www.mastercard.com/settlement/currencyrate/settlement-currencies"
+)
+RATE_URL = string.Template(
+    "https://www.mastercard.com/settlement/currencyrate/conversion-rate?fxDate=$exchange_rate_date&transCurr=$transaction_currency&crdhldBillCurr=$card_currency&bankFee=$bank_fee_percentage&transAmt=$transaction_amount"
+)
+RATE_ISSUED_URL = string.Template(
+    "https://www.mastercard.com/settlement/currencyrate/conversion-rate-issued?date=$exchange_rate_date"
+)
+REFERRER_URL = (
+    "https://www.mastercard.com/global/en/personal/get-support/convert-currency.html"
+)
+USER_AGENT = (
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0"
+)
 
 
-def settle(transaction_amount, transaction_currency, card_currency, exchange_rate_date, bank_fee_percentage):
+def settle(
+    transaction_amount,
+    transaction_currency,
+    card_currency,
+    exchange_rate_date,
+    bank_fee_percentage,
+):
     url = RATE_URL.substitute(
         bank_fee_percentage=bank_fee_percentage,
         card_currency=card_currency,
@@ -28,29 +44,24 @@ def settle(transaction_amount, transaction_currency, card_currency, exchange_rat
     json = response.json()
     logging.debug(json)
 
-    return json['data']
+    return json["data"]
 
 
 def rates_available(exchange_rate_date):
-    url = RATE_ISSUED_URL.substitute(
-        exchange_rate_date=exchange_rate_date
-    )
+    url = RATE_ISSUED_URL.substitute(exchange_rate_date=exchange_rate_date)
 
     response = make_mastercard_request(url)
 
     response.raise_for_status()
 
-    return response.json()['data']['rateIssued'] == 'YES'
+    return response.json()["data"]["rateIssued"] == "YES"
 
 
 def make_mastercard_request(url):
     headers = {
-        'Accept': 'application/json',
-        'Referer': REFERRER_URL,
-        'User-Agent': USER_AGENT,
+        "Accept": "application/json",
+        "Referer": REFERRER_URL,
+        "User-Agent": USER_AGENT,
     }
 
-    return requests.get(
-        url,
-        headers=headers
-    )
+    return requests.get(url, headers=headers)
