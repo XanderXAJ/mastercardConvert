@@ -58,7 +58,7 @@ mc 10 usd gbp
 
 ## Update
 
-Run the appropriate for your tool manager:
+Run the appropriate command for your tool manager:
 
 `uv`:
 
