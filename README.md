@@ -6,10 +6,10 @@ It uses the currencies as can be found in the [MasterCard Currency Conversion To
 
 ## Requirements
 
-This project uses [Python 3][python] & [pipx][pipx].
+This project uses [Python 3][python] & [uv][uv].
 
-[pipx]: https://github.com/pypa/pipx
 [python]: https://www.python.org/
+[uv]: https://docs.astral.sh/uv/
 
 ## Quick installation
 
@@ -104,8 +104,6 @@ uv run python -m unittest discover -s mc
 ```
 
 Use `uv run` to run commands inside the virtualenv from outside the virtualenv.
-
-[uv]: https://docs.astral.sh/uv/
 
 ### Default branch rename
 
