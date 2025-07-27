@@ -31,7 +31,7 @@ def settle(
         bank_fee_percentage=bank_fee_percentage,
         card_currency=card_currency,
         exchange_rate_date=exchange_rate_date,
-        transaction_amount=transaction_amount,
+        transaction_amount=f"{transaction_amount:g}",
         transaction_currency=transaction_currency,
     )
 
