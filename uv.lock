@@ -85,10 +85,21 @@ wheels = [
 ]
 
 [[package]]
+name = "latest-user-agents"
+version = "0.0.5"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "platformdirs" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/32/db/0bd5b2dddbebec3d56e388c942b6d5df938ec91e5f923f1cc5273149e96a/latest_user_agents-0.0.5.tar.gz", hash = "sha256:0c9018fa32745a5662d7e548481b32a8892a72b44c8a4afebd827cfce1d0be54", size = 6546, upload-time = "2025-01-24T19:56:19.725Z" }
+
+[[package]]
 name = "mastercardconvert"
 version = "0.1.1"
 source = { editable = "." }
 dependencies = [
+    { name = "latest-user-agents" },
     { name = "python-dateutil" },
     { name = "requests" },
 ]
@@ -102,6 +113,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "latest-user-agents", specifier = ">=0.0.5" },
     { name = "python-dateutil", specifier = ">=2.9.0.post0,<3.0.0" },
     { name = "requests", specifier = ">=2.32.4,<3.0.0" },
 ]

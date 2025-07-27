@@ -3,6 +3,8 @@ import string
 
 import requests
 
+from latest_user_agents import get_random_user_agent
+
 CURRENCY_URL = (
     "https://www.mastercard.com/settlement/currencyrate/settlement-currencies"
 )
@@ -15,9 +17,7 @@ RATE_ISSUED_URL = string.Template(
 REFERRER_URL = (
     "https://www.mastercard.com/global/en/personal/get-support/convert-currency.html"
 )
-USER_AGENT = (
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:139.0) Gecko/20100101 Firefox/139.0"
-)
+HOST = "www.mastercard.com"
 
 
 def settle(
@@ -59,9 +59,22 @@ def rates_available(exchange_rate_date):
 
 def make_mastercard_request(url):
     headers = {
-        "Accept": "application/json",
+        "Accept": "application/json, text/plain, */*",
+        "Accept-Encoding": "gzip, deflate, br, zstd",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Connection": "keep-alive",
+        "DNT": "1",
+        "Host": HOST,
+        "Priority": "u=0",
         "Referer": REFERRER_URL,
-        "User-Agent": USER_AGENT,
+        "Sec-Fetch-Dest": "empty",
+        "Sec-Fetch-Mode": "cors",
+        "Sec-Fetch-Site": "same-origin",
+        "Sec-GPC": "1",
+        "User-Agent": get_random_user_agent(),
     }
+
+    logging.debug(f"Making request to Mastercard API: {url}")
+    logging.debug(f"Using headers: {headers}")
 
     return requests.get(url, headers=headers)
